@@ -29,6 +29,26 @@ A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 
 - [FFmpeg](https://ffmpeg.org/) via npm dependencies
 - [Discord Bot Application](https://discord.com/developers/applications) with a bot token
 
+## Bot Setup
+
+1. Navigate to the [Discord Developer Portal](https://discord.com/developers/home)
+
+2. Create a new application
+
+3. In the Bot tab click Add Bot and check the following boxes:
+
+<img width="1404" height="321" alt="{0C9B4D82-988E-41EC-8680-702174C8B335}" src="https://github.com/user-attachments/assets/9753918b-d070-4d88-86f7-5232add02544" />
+
+4. In the OAuth2 tab check the following boxes:
+
+<img width="1101" height="343" alt="{FBC2D641-9C15-498C-BF81-5E810BE89041}" src="https://github.com/user-attachments/assets/ac687318-664c-4815-b915-e717fe49960e" />
+
+<img width="1130" height="583" alt="{25A521D0-8784-4488-8981-94D3761B2087}" src="https://github.com/user-attachments/assets/ba642bf5-1231-4a39-ba85-ae928e64e02d" />
+
+5. Then copy the URL at the bottom of the page and paste into your browser to invite the bot.
+
+- 
+
 ## Installation
 
 1. Clone this repository:
