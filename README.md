@@ -47,8 +47,6 @@ A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 
 
 5. Then copy the URL at the bottom of the page and paste into your browser to invite the bot.
 
-- 
-
 ## Installation
 
 1. Clone this repository:
