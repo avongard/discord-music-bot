@@ -1,7 +1,9 @@
 const { Events, Client, GatewayIntentBits, ApplicationCommandOptionType } = require("discord.js");
 const { Player, QueryType } = require("discord-player");
 const { DefaultExtractors } = require("@discord-player/extractor");
-const { YoutubeExtractor } = require("discord-player-youtubei");
+const youtubei = require("discord-player-youtubei");
+console.log("discord-player-youtubei exports:", Object.keys(youtubei));
+const YoutubeExtractorClass = youtubei.YoutubeiExtractor ?? youtubei.YoutubeExtractor;
 const config = require("./config.json");
 
 const client = new Client({
@@ -17,9 +19,10 @@ const player = new Player(client);
 
 client.once(Events.ClientReady, async () => {
     await player.extractors.loadMulti(DefaultExtractors);
-    await player.extractors.register(YoutubeExtractor, {});
-    console.log('Extractors loaded:', player.extractors.store.size);
-    console.log('Ready!');
+    await player.extractors.register(YoutubeExtractorClass, {});
+
+    console.log("Registered extractors:", [...player.extractors.store.keys()]);
+    console.log("Ready!");
 });
 
 client.on("error", console.error);
@@ -30,6 +33,10 @@ player.events.on("error", (queue, error) => {
 });
 player.events.on("playerError", (queue, error) => {
     console.log(`[${queue.guild.name}] Error emitted from the connection: ${error.message}`);
+});
+
+player.events.on("playerSkip", (queue, track, reason, description) => {
+    console.log(`[Skip] ${track.title} | ${reason} | ${description}`);
 });
 
 player.events.on("playerStart", (queue, track) => {
@@ -60,19 +67,19 @@ client.on(Events.MessageCreate, async (message) => {
         await message.guild.commands.set([
             {
                 name: "play",
-                description: "Plays a song from youtube",
+                description: "Plays a song from YouTube or Spotify",
                 options: [
                     {
                         name: "query",
                         type: ApplicationCommandOptionType.String,
-                        description: "The song you want to play",
+                        description: "A song name or a YouTube/Spotify link",
                         required: true
                     }
                 ]
             },
             {
                 name: "skip",
-                description: "Skip to the current song"
+                description: "Skip the current song"
             },
             {
                 name: "queue",
@@ -105,11 +112,24 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
         try {
             const { track } = await player.play(voiceChannel, query, {
-                searchEngine: QueryType.YOUTUBE_SEARCH,
+                searchEngine: QueryType.AUTO,
                 nodeOptions: {
                     metadata: interaction.channel,
                     leaveOnEmpty: true,
-                    leaveOnEnd: true
+                    leaveOnEnd: true,
+
+                    onBeforeCreateStream: async (track, queryType) => {
+                        if (queryType !== QueryType.SPOTIFY_SONG) return null; 
+
+                        const result = await player.search(`${track.author} - ${track.title}`, {
+                            searchEngine: QueryType.YOUTUBE_SEARCH
+                        });
+                        const yt = result.tracks[0];
+                        if (!yt) return null;
+
+                        const streamData = await yt.extractor.stream(yt);
+                        return streamData?.stream ?? streamData;
+                    }
                 }
             });
 
