@@ -67,12 +67,6 @@ A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 
    }
    ```
 
-4. In the [Discord Developer Portal](https://discord.com/developers/applications), under your bot's settings, enable the **Message Content Intent** under the "Privileged Gateway Intents" section.
-
-5. Invite your bot to your server using the OAuth2 URL generator in the Developer Portal, with the following scopes and permissions:
-   - Scopes: `bot`, `applications.commands`
-   - Permissions: `Send Messages`, `Connect`, `Speak`, `Read Message History`
-
 ## Usage
 
 1. Start the bot:
