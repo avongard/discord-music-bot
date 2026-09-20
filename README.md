@@ -1,10 +1,12 @@
 # Discord Music Bot
 
-A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 and [discord-player](https://discord-player.js.org/) v7, capable of streaming music from YouTube directly into your server's voice channels.
+A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 and [discord-player](https://discord-player.js.org/) v7, capable of streaming music from YouTube and Spotify directly into your server's voice channels.
 
 ## Features
 
 - Play songs from YouTube via search or direct link
+- Play songs from Spotify via direct link
+- Playlist support for both YouTube and Spotify
 - Skip tracks
 - View the current queue
 - Stop playback and clear the queue
