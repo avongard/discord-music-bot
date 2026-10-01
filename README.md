@@ -59,8 +59,13 @@ A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 
    ```bash
    npm install
    ```
+3. Modify `package.json` to include:
+   ```
+   "scripts": {
+   "start": "node index.js"
+   ```
 
-3. Create a `config.json` file in the root directory:
+4. Create a `config.json` file in the root directory:
    ```json
    {
      "token": "YOUR_DISCORD_BOT_TOKEN"
