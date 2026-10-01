@@ -71,7 +71,7 @@ A simple Discord music bot built with [discord.js](https://discord.js.org/) v14 
 
 1. Start the bot:
    ```bash
-   node index.js
+   npm start
    ```
 
 2. In any text channel the bot can see, type `!deploy` (as the bot application's owner) to register the slash commands to that server.
